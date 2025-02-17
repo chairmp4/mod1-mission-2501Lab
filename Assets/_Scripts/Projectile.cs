@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 [RequireComponent( typeof(Rigidbody) )]
 
@@ -46,7 +48,5 @@ public class Projectile : MonoBehaviour{
             awake = false;
             rigid.Sleep();
         }
-
-
     }
 }

@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Slingshot : MonoBehaviour{
+
+    public Text                scoreGT;
 
     [Header("Inscribed")]
     public GameObject projectilePrefab;
@@ -21,8 +24,20 @@ public class Slingshot : MonoBehaviour{
         launchPoint.SetActive(false);
         launchPos = launchPointTrans.position;
     }
- 
- void OnMouseEnter(){
+
+    void Start()
+    {
+      // adds score into script and sets the text to zero
+      GameObject scoreGO = GameObject.Find("ScoreCounter");    
+
+      // Get the Text Component of that GameObject
+      scoreGT = scoreGO.GetComponent<Text>();        
+                             
+      // Set the starting number of points to 0
+      scoreGT.text = "0";
+    }
+
+    void OnMouseEnter(){
     //print("Slingshot:OnMouseEnter()");
     launchPoint.SetActive(true);
  }
@@ -41,6 +56,20 @@ public class Slingshot : MonoBehaviour{
     projectile.transform.position = launchPos;
 
     projectile.GetComponent<Rigidbody>().isKinematic = true;
+
+
+   int score = int.Parse( scoreGT.text );
+
+   score += 1; // previous block allows for int to be added toreturn
+
+   // Convert the score back to a string and display it
+   scoreGT.text = score.ToString();
+   
+   // Track the high score
+   if (score > HighScore.score){
+      HighScore.score = score;
+   }
+
  }
  void Update(){
 
